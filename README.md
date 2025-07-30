@@ -12,7 +12,9 @@ A beautiful, responsive weather application built with HTML, JavaScript, and Tai
 
 ## 🚀 Live Demo
 - **Frontend:** [https://akshatguptaweatherapp.netlify.app/](https://akshatguptaweatherapp.netlify.app/)
-- **Backend API:** [https://weather-app-backend-lpl6.onrender.com/api/weather?city=allahabad](https://weather-app-backend-lpl6.onrender.com/api/weather?city=allahabad)
+- **Backend:** [https://weather-app-backend-lpl6.onrender.com/api/weather?city=allahabad](https://weather-app-backend-lpl6.onrender.com/api/weather?city=allahabad)
+- **Backend API:** [https://weather-app-backend-lpl6.onrender.com/api](https://weather-app-backend-lpl6.onrender.com/api)
+
 
 ## 🛠️ Tech Stack
 
@@ -46,7 +48,7 @@ weather-app-fullstack/
 ## 🚀 Quick Start
 
 Clone the repository
-git clone https://github.com/your-username/weather-app-fullstack.git
+git clone https://github.com/akshatt-guptaa/Weather-App-fullstack.git
 cd weather-app-fullstack
 
 Open the frontend
