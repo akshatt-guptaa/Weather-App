@@ -3,27 +3,32 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000; // Render uses dynamic PORT
 
-// Enable CORS for all origins
+// Validate environment variables
+if (!process.env.WEATHER_API_KEY) {
+  console.error('❌ Error: WEATHER_API_KEY environment variable is missing');
+  process.exit(1);
+}
+
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Import your routes
+// Routes
 const weatherRoutes = require('./routes/weather');
 app.use('/api', weatherRoutes);
 
-// Health check endpoint
+// Health check
 app.get('/', (req, res) => {
-  res.json({ message: 'Weather App Backend is running on Vercel!' });
+  res.json({ 
+    message: 'Weather App Backend is running!',
+    status: 'healthy',
+    timestamp: new Date().toISOString()
+  });
 });
 
-// Export the Express app for Vercel
-module.exports = app;
-
-// Only start server in development
-if (process.env.NODE_ENV !== 'production') {
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-  });
-}
+// Start server - Listen on all interfaces for Render
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`✅ Server running on port ${PORT}`);
+});
