@@ -63,7 +63,7 @@ This app is deployed using:
 
 ## 🙏 Acknowledgments
 
-- [WeatherAPI](https://weatherapi.com/) for weather data
+- [WeatherAPI](https://www.weatherapi.com/) for weather data
 - [Tailwind CSS](https://tailwindcss.com/) for styling utilities
 - [Netlify](https://netlify.com/) and [Render](https://render.com/) for hosting
 
