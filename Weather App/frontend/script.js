@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://weather-app-backend-lpl6.onrender.com/';
+const API_BASE_URL = 'https://weather-app-backend-lpl6.onrender.com';
 
 // DOM elements
 const elements = {
