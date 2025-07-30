@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'poppins': ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        body {
+            background: linear-gradient(-45deg, #74b9ff, #0984e3, #6c5ce7, #00cec9, #fd79a8, #fdcb6e);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+        
+        /* Subtle floating effect for cards */
+        .floating {
+            animation: subtleFloat 6s ease-in-out infinite;
+        }
+        
+        @keyframes subtleFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body class="font-poppins min-h-screen text-gray-800">
+    <div class="container mx-auto max-w-4xl px-4 py-6">
+        <!-- Your existing weather app content -->
+        <!-- Add 'floating' class to weather cards for subtle animation -->
+         <header class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-6 drop-shadow-lg">
+                🌤️ Weather App
+            </h1>
+            
+            <!-- Search Box -->
+            <div class="flex flex-col sm:flex-row gap-3 justify-center items-center mb-6">
+                <input 
+                    type="text" 
+                    id="cityInput" 
+                    placeholder="Enter city name..."
+                    class="w-full sm:w-80 px-6 py-3 rounded-full border-none outline-none shadow-lg text-gray-700 placeholder-gray-500 focus:ring-4 focus:ring-blue-200 transition-all duration-300"
+                >
+                <div class="flex gap-2">
+                    <button 
+                        id="searchBtn"
+                        class="px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center gap-2"
+                    >
+                        🔍 Search
+                    </button>
+                    <button 
+                        id="locationBtn"
+                        class="px-6 py-3 bg-orange-500 hover:bg-red-500 text-white rounded-full font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center gap-2"
+                    >
+                        📍 Location
+                    </button>
+                </div>
+            </div>
+        </header>
+        <div id="weatherCard" class="bg-white/90 backdrop-blur-sm rounded-3xl p-8 mb-8 shadow-2xl border border-white/20 floating">
+            <!-- Weather card content -->
+             <div class="text-center mb-8">
+                    <h2 id="cityName" class="text-2xl md:text-3xl font-semibold text-gray-800 mb-2">Prayagraj</h2>
+                    <p id="currentDate" class="text-gray-600 text-sm md:text-base"></p>
+                </div>
+
+                <!-- Weather Main Info -->
+                <div class="flex flex-col lg:flex-row justify-between items-center mb-8 gap-6">
+                    <div class="flex items-center gap-6">
+                        <span id="temp" class="text-6xl md:text-7xl font-light text-gray-800">--°C</span>
+                        <div class="weather-icon">
+                            <img id="weatherIcon" src="" alt="Weather Icon" class="w-24 h-24 md:w-28 md:h-28">
+                        </div>
+                    </div>
+                    <div class="text-center lg:text-right">
+                        <p id="description" class="text-xl md:text-2xl font-medium text-gray-700 capitalize mb-2">--</p>
+                        <p id="feelsLike" class="text-gray-600 text-base md:text-lg">Feels like --°C</p>
+                    </div>
+                </div>
+
+                <!-- Weather Details Grid -->
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 pt-6 border-t border-gray-200">
+                    <div class="bg-blue-50 p-4 rounded-xl text-center hover:bg-blue-100 transition-colors duration-200">
+                        <span class="block text-sm text-gray-600 mb-1">💧 Humidity</span>
+                        <span id="humidity" class="text-lg font-semibold text-gray-800">--%</span>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-xl text-center hover:bg-green-100 transition-colors duration-200">
+                        <span class="block text-sm text-gray-600 mb-1">💨 Wind Speed</span>
+                        <span id="windSpeed" class="text-lg font-semibold text-gray-800">-- km/h</span>
+                    </div>
+                    <div class="bg-purple-50 p-4 rounded-xl text-center hover:bg-purple-100 transition-colors duration-200">
+                        <span class="block text-sm text-gray-600 mb-1">🌡️ Pressure</span>
+                        <span id="pressure" class="text-lg font-semibold text-gray-800">-- hPa</span>
+                    </div>
+                    <div class="bg-yellow-50 p-4 rounded-xl text-center hover:bg-yellow-100 transition-colors duration-200">
+                        <span class="block text-sm text-gray-600 mb-1">👁️ Visibility</span>
+                        <span id="visibility" class="text-lg font-semibold text-gray-800">-- km</span>
+                    </div>
+                </div>
+        </div>
+                    <!-- 5-Day Forecast -->
+            <div id="forecast" class="bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-white/20">
+                <h3 class="text-2xl font-semibold text-gray-800 text-center mb-6">📅 5-Day Forecast</h3>
+                <div id="forecastCards" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4"></div>
+            </div>
+        </main>
+
+        <!-- Loading Spinner -->
+        <div id="loading" class="hidden text-center py-12">
+            <div class="bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-2xl inline-block">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+                <p class="text-gray-700 font-medium">Loading weather data...</p>
+            </div>
+        </div>
+
+        <!-- Error Message -->
+        <div id="errorMessage" class="hidden">
+            <div class="bg-red-100 border border-red-400 text-red-700 px-6 py-4 rounded-2xl text-center shadow-lg">
+                <div class="flex items-center justify-center gap-2 mb-2">
+                    <span class="text-2xl">⚠️</span>
+                    <span class="font-semibold">Error</span>
+                </div>
+                <p>Unable to fetch weather data. Please try again.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+        
+        
+    </div>
+</body>
+</html>
