@@ -25,11 +25,48 @@ A beautiful, responsive weather application built with HTML, JavaScript, and Tai
 
 weather-app-fullstack/
 ├── frontend/ # Client-side application
+
 │ ├── index.html # Main HTML file
+
 │ ├── script.js # JavaScript functionality
+
 ├── backend/ # Server-side API
+
 │ ├── server.js # Express server
+
 │ ├── routes/ # API endpoints
+
 │ │ └── weather.js # Weather route handlers
+
 │ └── package.json # Dependencies
+
 └── README.md
+
+
+## 🚀 Quick Start
+
+Clone the repository
+git clone https://github.com/your-username/weather-app-fullstack.git
+cd weather-app-fullstack
+
+Open the frontend
+cd frontend
+
+Open index.html in your browser
+
+
+## 🚀 Deployment
+
+This app is deployed using:
+- **Frontend:** Netlify (automatic deployment from GitHub)
+- **Backend:** Render (with environment variables configured)
+
+## 🙏 Acknowledgments
+
+- [WeatherAPI](https://weatherapi.com/) for weather data
+- [Tailwind CSS](https://tailwindcss.com/) for styling utilities
+- [Netlify](https://netlify.com/) and [Render](https://render.com/) for hosting
+
+---
+
+⭐ **Note:** The frontend is configured to use the live backend by default. Clone and open `frontend/index.html` to start using the app immediately!
