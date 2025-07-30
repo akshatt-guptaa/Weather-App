@@ -4,54 +4,32 @@ A beautiful, responsive weather application built with HTML, JavaScript, and Tai
 
 ## ✨ Features
 - 🌡️ Current weather display with beautiful animations
-- 📅 5-day weather forecast
+- 📅 7-day weather forecast
 - 📍 Location-based weather detection
 - 🔍 City search functionality
 - 🎨 Beautiful animated gradient background
 - 📱 Fully responsive design
 
 ## 🚀 Live Demo
-[View Live Demo](https://akshatguptaweatherapp.netlify.app/)
+- **Frontend:** [https://akshatguptaweatherapp.netlify.app/](https://akshatguptaweatherapp.netlify.app/)
+- **Backend API:** [https://weather-app-backend-lpl6.onrender.com/api/weather?city=allahabad](https://weather-app-backend-lpl6.onrender.com/api/weather?city=allahabad)
 
-## Tech Stack
+## 🛠️ Tech Stack
 
-**Frontend:** HTML, CSS, Vanilla JavaScript  
+**Frontend:** HTML, CSS (Tailwind), Vanilla JavaScript  
 **Backend:** Node.js, Express.js  
-**API:** WeatherAPI
+**API:** WeatherAPI  
+**Hosting:** Netlify (Frontend) + Render (Backend)
 
-## Project Structure
+## 📁 Project Structure
 
 weather-app-fullstack/
-├── frontend/ # HTML, CSS, JS files
-
-├── backend/ # Node.js server
-
-│ ├── server.js
-
-│ ├── routes/weather.js
-
-│ └── package.json
-
+├── frontend/ # Client-side application
+│ ├── index.html # Main HTML file
+│ ├── script.js # JavaScript functionality
+├── backend/ # Server-side API
+│ ├── server.js # Express server
+│ ├── routes/ # API endpoints
+│ │ └── weather.js # Weather route handlers
+│ └── package.json # Dependencies
 └── README.md
-
-
-
-## Quick Start
-
-1. **Clone & Install**
-cd weather-app-fullstack/backend
-npm install
-
-
-2. **Environment Setup**
-Create `backend/.env`:
-WEATHER_API_KEY=your_weatherapi_key
-PORT=3000
-
-
-3. **Run Locally**
-Start backend
-cd backend && npm run dev
-Open frontend/index.html in browser
-
-
