@@ -31,6 +31,9 @@ function displayWeather(data) {
     document.getElementById('weatherIcon').src = `https:${data.icon}`;
     document.getElementById('humidity').textContent = `${data.humidity}%`;
     document.getElementById('windSpeed').textContent = `${data.windSpeed} km/h`;
+    document.getElementById('pressure').textContent = `${data.pressure} hPa`;
+    document.getElementById('visibility').textContent = `${data.visibility} km`;
+    document.getElementById('feelsLike').textContent = `${data.feelsLike}°C`;
     elements.weatherCard.style.display = 'block';
 }
 
