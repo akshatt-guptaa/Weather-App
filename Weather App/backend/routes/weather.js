@@ -16,7 +16,7 @@ router.get('/weather', async (req, res) => {
 
     const response = await axios.get(apiUrl);
     
-    // Include ALL weather data including pressure, visibility, feels like
+    // Include ALL weather data 
     const weatherData = {
       city: response.data.location.name,
       country: response.data.location.country,
@@ -45,7 +45,7 @@ router.get('/weather', async (req, res) => {
   }
 });
 
-// Get extended forecast (up to 7 days with WeatherAPI)
+// Get extended forecast 
 router.get('/forecast', async (req, res) => {
   try {
     const { city, days = 7 } = req.query; // Default to 7 days
