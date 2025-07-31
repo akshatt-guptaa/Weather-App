@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Theme Toggle Button in Corner -->
+    <button 
+        id="themeToggle"
+        class="fixed top-6 right-6 z-50 px-8 py-4 text-3xl bg-white bg-opacity-20 shadow-lg backdrop-blur-md border border-white border-opacity-30 text-white rounded-full hover:bg-opacity-40 transition-all duration-300"
+        title="Toggle Dark/Light Mode"
+    >
+        🌓
+    </button>
+    <div class="w-full min-h-screen px-0 py-0 flex flex-col">
+        <!-- Header -->
+        <header class="flex flex-col items-center md:items-start mb-10 w-full px-6">
+            <div class="flex items-center gap-4 mb-4">
+                <h1 class="text-4xl sm:text-5xl font-bold text-white drop-shadow-lg">
+                    🌤️ Weather Pro
+                </h1>
+                
+                
+            </div>
+            <p class="text-white text-base sm:text-lg mb-6 opacity-80">Your intelligent weather companion</p>
+            <!-- Search Box -->
+            <div class="flex w-full max-w-md mx-auto mb-4">
+                <input 
+                    type="text" 
+                    id="cityInput" 
+                    placeholder="Search any city..."
+                    class="flex-1 px-6 py-4 bg-white bg-opacity-10 backdrop-blur-sm border border-white border-opacity-20 rounded-l-full text-white placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-30"
+                >
+                <button 
+                    id="searchBtn"
+                    class="px-6 py-4 bg-blue-500 hover:bg-blue-600 text-white rounded-r-full transition-colors duration-300"
+                >
+                    🔍
+                </button>
+            </div>
+            <button 
+                id="locationBtn"
+                class="px-8 py-3 bg-white bg-opacity-10 backdrop-blur-sm border border-white border-opacity-20 text-white rounded-full hover:bg-opacity-20 transition-all duration-300"
+            >
+                📍 Use Current Location
+            </button>
+        </header>
+
+        <!-- Weather Card -->
+        <div id="weatherCard" class="glass-card mb-8 w-full p-0 overflow-hidden shadow-2xl">
+            <div class="flex flex-col md:flex-row items-center md:items-stretch">
+                <!-- Left: Icon & Temp -->
+                <div class="flex flex-col items-center justify-center bg-gradient-to-b from-blue-400/80 to-pink-400/90 p-10 rounded-t-2xl md:rounded-l-2xl md:rounded-tr-none w-full md:w-1/2 shadow-lg">
+                    <img id="weatherIcon" src="" alt="Weather Icon" class="w-32 h-32 mb-4 drop-shadow-2xl rounded-full bg-white/30 p-2 animate-bounce-slow">                    <span id="temp" class="text-7xl font-extrabold text-white drop-shadow-lg">--°C</span>
+                    <p id="description" class="text-2xl text-white opacity-90 capitalize mt-3 font-medium">--</p>
+                    <p id="feelsLike" class="text-white opacity-80 text-base mt-2">Feels like --°C</p>
+                </div>
+                <!-- Right: Details -->
+                <div class="flex-1 flex flex-col justify-between p-8 gap-4 bg-white/10 md:rounded-r-2xl">
+                    <div>
+                        <h2 id="cityName" class="text-3xl font-bold text-white text-center md:text-left mb-1">Loading...</h2>
+                        <p id="currentDate" class="text-white opacity-80 text-center md:text-left mb-4"></p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div class="flex items-center gap-2">
+                            <span class="text-2xl">💧</span>
+                            <span id="humidity" class="font-bold text-white">--%</span>
+                            <span class="text-white opacity-70 text-sm ml-1">Humidity</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-2xl">🌬️</span>
+                            <span id="windSpeed" class="font-bold text-white">-- km/h</span>
+                            <span class="text-white opacity-70 text-sm ml-1">Wind Speed</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-2xl">🌡️</span>
+                            <span id="pressure" class="font-bold text-white">-- hPa</span>
+                            <span class="text-white opacity-70 text-sm ml-1">Pressure</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-2xl">👁️</span>
+                            <span id="visibility" class="font-bold text-white">-- km</span>
+                            <span class="text-white opacity-70 text-sm ml-1">Visibility</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-2xl">🔆</span>
+                            <span id="uvIndex" class="font-bold text-white">--</span>
+                            <span class="text-white opacity-70 text-sm ml-1">UV Index</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center mt-2">
+                        <div class="flex items-center gap-2">
+                            <span class="text-yellow-300 text-2xl">🌅</span>
+                            <span class="text-white text-base">Sunrise: <span id="sunrise">--:--</span></span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-orange-400 text-2xl">🌇</span>
+                            <span class="text-white text-base">Sunset: <span id="sunset">--:--</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Forecast -->
+        <div id="forecast" class="glass-card w-full">
+            <h3 class="text-2xl font-bold text-white mb-6 text-center">📅 7-Day Forecast</h3>
+            <div id="forecastCards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-4"></div>
+        </div>
+
+        <!-- Loading -->
+        <div id="loading" class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
+            <div class="glass-card text-center">
+                <div class="animate-spin rounded-full h-12 w-12 border-2 border-white border-t-transparent mx-auto mb-4"></div>
+                <p class="text-white">Loading weather data...</p>
+            </div>
+        </div>
+
+        <!-- Error -->
+        <div id="errorMessage" class="hidden fixed top-4 right-4 z-50">
+            <div class="bg-red-500 bg-opacity-20 backdrop-blur-sm border border-red-400 border-opacity-50 text-white px-6 py-4 rounded-lg">
+                <p>Unable to fetch weather data. Please try again.</p>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
