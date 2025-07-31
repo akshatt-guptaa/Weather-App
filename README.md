@@ -5,7 +5,6 @@ A beautiful, responsive weather application built with HTML, JavaScript, and Tai
 ## ✨ Features
 - 🌡️ Current weather display with beautiful animations
 - 📅 7-day weather forecast
-- 📍 Location-based weather detection
 - 🔍 City search functionality
 - 🎨 Beautiful animated gradient background
 - 📱 Fully responsive design
