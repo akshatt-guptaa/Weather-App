@@ -5,7 +5,6 @@ const WEATHER_API_BASE = 'https://api.weatherapi.com/v1';
 const elements = {
     cityInput: document.getElementById('cityInput'),
     searchBtn: document.getElementById('searchBtn'),
-    locationBtn: document.getElementById('locationBtn'),
     weatherCard: document.getElementById('weatherCard'),
     loading: document.getElementById('loading'),
     errorMessage: document.getElementById('errorMessage')
@@ -115,37 +114,6 @@ elements.searchBtn.addEventListener('click', () => {
 
 elements.cityInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') elements.searchBtn.click();
-});
-
-elements.locationBtn.addEventListener('click', () => {
-    if (navigator.geolocation) {
-        showLoading();
-        navigator.geolocation.getCurrentPosition(
-            async (position) => {
-                try {
-                    const { latitude, longitude } = position.coords;
-                    const url = `${WEATHER_API_BASE}/forecast.json?key=${WEATHER_API_KEY}&q=${latitude},${longitude}&days=7&aqi=no&alerts=no`;
-                    const res = await fetch(url);
-                    const data = await res.json();
-                    if (!res.ok || data.error) {
-                        throw new Error(data.error?.message || 'Location weather not found');
-                    }
-                    displayWeather(data);
-                    displayForecast(data);
-                } catch (error) {
-                    showError(error.message || 'Unable to get weather for your location');
-                } finally {
-                    hideLoading();
-                }
-            },
-            () => {
-                hideLoading();
-                showError('Location access denied');
-            }
-        );
-    } else {
-        showError('Geolocation is not supported by your browser');
-    }
 });
 
 // Theme toggle
