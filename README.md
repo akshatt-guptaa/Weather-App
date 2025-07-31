@@ -32,6 +32,8 @@ weather-app-fullstack/
 
 │ ├── script.js # JavaScript functionality
 
+│ └── styles.css # Frontend styling 
+
 ├── backend/ # Server-side API
 
 │ ├── server.js # Express server
