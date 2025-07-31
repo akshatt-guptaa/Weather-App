@@ -16,29 +16,34 @@ router.get('/weather', async (req, res) => {
 
     const response = await axios.get(apiUrl);
     
-    // Include ALL weather data 
+    // SAFE property access with fallbacks
     const weatherData = {
-      city: response.data.location.name,
-      country: response.data.location.country,
-      region: response.data.location.region,
-      temperature: Math.round(response.data.current.temp_c),
-      description: response.data.current.condition.text,
-      humidity: response.data.current.humidity,
-      windSpeed: response.data.current.wind_kph,
-      icon: response.data.current.condition.icon,
-      feelsLike: Math.round(response.data.current.feelslike_c),
-      visibility: response.data.current.vis_km,
-      pressure: response.data.current.pressure_mb,
-      uvIndex: response.data.current.uv,
-      cloudCover: response.data.current.cloud
+      city: response.data.location?.name || 'Unknown',
+      country: response.data.location?.country || 'Unknown',
+      region: response.data.location?.region || '',
+      temperature: Math.round(response.data.current?.temp_c || 0),
+      description: response.data.current?.condition?.text || 'Unknown',
+      humidity: response.data.current?.humidity || 0,
+      windSpeed: response.data.current?.wind_kph || 0,
+      icon: response.data.current?.condition?.icon || '',
+      feelsLike: Math.round(response.data.current?.feelslike_c || 0),
+      visibility: response.data.current?.vis_km || 0,
+      pressure: response.data.current?.pressure_mb || 0,
+      uvIndex: response.data.current?.uv || 0,
+      cloudCover: response.data.current?.cloud || 0
     };
 
+    console.log('Weather API success for:', city);
     res.json(weatherData);
   } catch (error) {
     console.error('WeatherAPI Error:', error.message);
     
     if (error.response?.status === 400) {
       res.status(404).json({ error: 'City not found' });
+    } else if (error.response?.status === 401) {
+      res.status(401).json({ error: 'Invalid API key' });
+    } else if (error.response?.status === 403) {
+      res.status(403).json({ error: 'API quota exceeded' });
     } else {
       res.status(500).json({ error: 'Failed to fetch weather data' });
     }
@@ -48,7 +53,7 @@ router.get('/weather', async (req, res) => {
 // Get extended forecast 
 router.get('/forecast', async (req, res) => {
   try {
-    const { city, days = 7 } = req.query; // Default to 7 days
+    const { city, days = 7 } = req.query;
     
     if (!city) {
       return res.status(400).json({ error: 'City parameter is required' });
@@ -59,26 +64,34 @@ router.get('/forecast', async (req, res) => {
 
     const response = await axios.get(apiUrl);
     
-    // Process forecast data for more days
-    const forecastData = response.data.forecast.forecastday.map(day => ({
-      date: day.date,
-      maxTemp: Math.round(day.day.maxtemp_c),
-      minTemp: Math.round(day.day.mintemp_c),
-      description: day.day.condition.text,
-      icon: day.day.condition.icon,
-      chanceOfRain: day.day.daily_chance_of_rain,
-      humidity: day.day.avghumidity,
-      windSpeed: day.day.maxwind_kph
-    }));
+    // SAFE processing of forecast data
+    const forecastData = response.data.forecast?.forecastday?.map(day => ({
+      date: day.date || 'Unknown',
+      maxTemp: Math.round(day.day?.maxtemp_c || 0),
+      minTemp: Math.round(day.day?.mintemp_c || 0),
+      description: day.day?.condition?.text || 'Unknown',
+      icon: day.day?.condition?.icon || '',
+      chanceOfRain: day.day?.daily_chance_of_rain || 0,
+      humidity: day.day?.avghumidity || 0,
+      windSpeed: day.day?.maxwind_kph || 0
+    })) || [];
 
+    console.log('Weather Forecast API success for:', city);
     res.json({
-      city: response.data.location.name,
-      country: response.data.location.country,
+      city: response.data.location?.name || 'Unknown',
+      country: response.data.location?.country || 'Unknown',
       forecast: forecastData
     });
   } catch (error) {
     console.error('WeatherAPI Forecast Error:', error.message);
-    res.status(500).json({ error: 'Failed to fetch forecast data' });
+    
+    if (error.response?.status === 400) {
+      res.status(404).json({ error: 'City not found' });
+    } else if (error.response?.status === 401) {
+      res.status(401).json({ error: 'Invalid API key' });
+    } else {
+      res.status(500).json({ error: 'Failed to fetch weather data' });
+    }
   }
 });
 
